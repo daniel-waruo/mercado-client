@@ -16,6 +16,8 @@ import OrderStatus from "./OrderStatus";
 import PaymentStatus from "./PaymentStatus";
 import PaymentMethod from "./PaymentMethod";
 import PhoneTwoToneIcon from '@mui/icons-material/PhoneTwoTone';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import Link from 'next/link';
 
 type OrdersTableProps = {
   toggleFunction: (order: Order) => void,
@@ -117,6 +119,13 @@ export default function OrdersTable({toggleFunction, status}: OrdersTableProps) 
                   <Button variant={'outlined'} onClick={() => toggleFunction(row)}>
                     <ModeEditOutlinedIcon/>
                   </Button>
+                </TableCell>
+                <TableCell align="left">
+                  <Link href={'/orders/[id]'} as={`/orders/${row.id}`}>
+                    <Button variant={'outlined'}>
+                      <VisibilityIcon/>
+                    </Button>
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}

@@ -135,7 +135,7 @@ const MainLayout = ({window, title, children}: MainProps) => {
         </Drawer>
       </Box>
       <Box component="main" sx={{
-        flexGrow: 1, p: 3, width: {sm: `calc(100% - ${drawerWidth}px)`},
+        flexGrow: 1, p: 3, width: {xs: `calc(100% - ${drawerWidth}px)`},
         minHeight: '100vh',
         height: '100%',
         backgroundColor: 'primary.light',

@@ -16,12 +16,13 @@ export default function DashboardCard({icon: Icon, title, value}: DashboardCardP
   return (
     <Card sx={{
       minWidth: '100%',
-      borderRadius: '1rem'
+      borderRadius: '1rem',
+      height:'100%'
     }}>
       <CardContent>
         <Box sx={{padding: '0.5rem'}}>
           <Grid container>
-            <Grid item xs={4} sm={3} >
+            <Grid item xs={12}  lg={3} >
               <div style={{position: 'relative', height: '3rem'}}>
                 <Box
                   sx={{
@@ -32,15 +33,15 @@ export default function DashboardCard({icon: Icon, title, value}: DashboardCardP
                     borderRadius: '100%',
                     height: '2.8rem',
                     width: '2.8rem',
-                    textAlign: 'center'
+                    textAlign: 'center',
                   }}
                 >
                   <Icon sx={{height: '100%', width: '100%', padding: '9px', color: 'primary.main'}}/>
                 </Box>
               </div>
             </Grid>
-            <Grid item xs={8} sm={9}>
-              <Box sx={{paddingLeft: '0.2rem'}}>
+            <Grid item xs={12} lg={9}>
+              <Box sx={{paddingLeft: '0.19rem'}}>
                 <Typography fontWeight={'light'} fontSize={12}>{title}</Typography>
                 <Typography fontWeight={1000} fontSize={20}>{value}</Typography>
               </Box>
