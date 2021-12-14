@@ -108,8 +108,9 @@ const OrdersPage = () => {
             }}>
               <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs
+                  variant="scrollable"
                   TabIndicatorProps={{style: {backgroundColor: color}}}
-                  sx={{'& .Mui-selected': {color: `${color}!important`}}}
+                  sx={{'& .Mui-selected': {color: `${color}!important`},overflow:"auto",width:"auto"}}
                   value={value}
                   onChange={
                     (event: React.SyntheticEvent, newValue: number) => {
