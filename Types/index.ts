@@ -37,7 +37,7 @@ export interface Order {
   items: OrderItem[]
   payment_method: string
   payment_status: string
-  status: string
+  status: 'fin' | 'prep' | 'ship' | 'can' | string
   total: number
 }
 

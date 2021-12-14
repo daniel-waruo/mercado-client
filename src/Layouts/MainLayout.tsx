@@ -92,7 +92,7 @@ const MainLayout = ({window, title, children}: MainProps) => {
 
   const container = window !== undefined ? () => window().document.body : undefined;
   return (
-    <Box sx={{display: 'flex', backgroundColor: 'transparent'}}>
+    <Box sx={{display: 'flex', backgroundColor: 'transparent',width:'100%'}}>
       <NavBar title={title} handleDrawerToggle={handleDrawerToggle}/>
       <Box
         component="nav"

@@ -40,7 +40,7 @@ export default function CustomersTable({toggleFunction}: OrdersTableProps) {
       padding: '1rem'
     }}>
       <TableContainer component={Box}>
-        <Table sx={{minWidth: 650}} aria-label="simple table">
+        <Table sx={{width: '100%'}} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell align={"left"}>

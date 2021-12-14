@@ -56,7 +56,7 @@ export default function OrdersTable({toggleFunction, status}: OrdersTableProps) 
           ),
         }}
         fullWidth/>
-      <TableContainer sx={{minWidth: 650, minHeight: 600}} component={Box}>
+      <TableContainer sx={{width: '100%'}} component={Box}>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -116,13 +116,13 @@ export default function OrdersTable({toggleFunction, status}: OrdersTableProps) 
                   }
                 </TableCell>
                 <TableCell align="left">
-                  <Button variant={'outlined'} onClick={() => toggleFunction(row)}>
+                  <Button onClick={() => toggleFunction(row)}>
                     <ModeEditOutlinedIcon/>
                   </Button>
                 </TableCell>
                 <TableCell align="left">
-                  <Link href={'/orders/[id]'} as={`/orders/${row.id}`}>
-                    <Button variant={'outlined'}>
+                  <Link passHref href={'/orders/[id]'} as={`/orders/${row.id}`}>
+                    <Button>
                       <VisibilityIcon/>
                     </Button>
                   </Link>
