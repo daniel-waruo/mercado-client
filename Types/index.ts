@@ -58,3 +58,15 @@ export interface DashboardMetrics {
   avgOrderValue: number
   orderCancelRate: number
 }
+
+export interface CustomerMetrics {
+  totalCustomer: number
+  avgCustomerRevenue: number
+  conversionRate: number
+}
+
+export interface InventoryMetrics {
+  totalCount: number
+  inventoryValue: number
+  expectedProfit: number
+}

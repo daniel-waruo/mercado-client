@@ -4,15 +4,35 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import DashboardCard from "../DashboardPage/components/DashboardCard";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import MoneyOffIcon from "@mui/icons-material/MoneyOff";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import CustomersTable from "./components/CustomersTable";
 import AddIcon from "@mui/icons-material/Add";
 import CustomerModal from "./components/CustomerModal";
-import {Customer} from "../../Types";
+import {Customer, CustomerMetrics} from "../../Types";
+import {getInstance} from "../../axios";
 
 const CustomersPage = () => {
   const [open, setOpen] = useState(false);
   const [customer, setCustomer] = useState<Customer | undefined>();
+  const [metrics, setMetrics] = useState<CustomerMetrics>({
+    totalCustomer:  0,
+    avgCustomerRevenue: 0,
+    conversionRate: 0
+  })
+  useEffect(() => {
+    getInstance().get('customer-metrics').then(
+      (response) => {
+        console.log(response.data)
+        setMetrics(response.data.data)
+      }
+    ).catch(
+      (error) => {
+        console.log(error)
+      }
+    )
+  }, [getInstance, setMetrics]);
+
+
   return (
     <MainLayout title={'Customers'}>
       <Grid container spacing={2}>
@@ -26,19 +46,19 @@ const CustomersPage = () => {
         <Grid item xs={6} md={4}>
           <DashboardCard
             title={'Total Customers'}
-            value={'140'}
+            value={metrics.totalCustomer}
             icon={BarChartIcon}/>
         </Grid>
         <Grid item xs={6} md={4}>
           <DashboardCard
             title={'Avg. Customer Revenue'}
-            value={'Ksh 150'}
+            value={`Ksh ${metrics.avgCustomerRevenue}`}
             icon={ShowChartIcon}/>
         </Grid>
         <Grid item xs={12} md={4}>
           <DashboardCard
-            title={'New Customers'}
-            value={'15'}
+            title={'Conversion Rate'}
+            value={metrics.conversionRate}
             icon={MoneyOffIcon}/>
         </Grid>
         <Grid item xs={12}>

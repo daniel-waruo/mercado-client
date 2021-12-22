@@ -28,7 +28,7 @@ type SideBarItemProps = {
   href: string,
   iconComponent: React.FC
 }
-const SideBarItem = ({text, href, iconComponent: IconComponent}: SideBarItemProps) => {
+export const SideBarItem = ({text, href, iconComponent: IconComponent}: SideBarItemProps) => {
   return (
     <Link href={href}>
       <ListItem component={'a'} button sx={{

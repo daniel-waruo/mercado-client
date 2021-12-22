@@ -12,11 +12,15 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 600,
+  maxWidth: 600,
+  minWidth: 300,
+  overflow: 'auto',
+  maxHeight: '95vh',
   backgroundColor: 'primary.light',
   boxShadow: 24,
   p: 4,
-  borderRadius: '1rem'
+  borderRadius: '1rem',
+
 };
 
 
