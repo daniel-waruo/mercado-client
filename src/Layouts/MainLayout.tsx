@@ -14,7 +14,7 @@ import NavBar from "../NavBar";
 import {Avatar} from "@mui/material";
 import Link from "next/link"
 import {getInstance} from "../../axios";
-import Router from "next/router";
+import Router, {useRouter} from "next/router";
 
 const drawerWidth = 200;
 
@@ -29,11 +29,12 @@ type SideBarItemProps = {
   iconComponent: React.FC
 }
 export const SideBarItem = ({text, href, iconComponent: IconComponent}: SideBarItemProps) => {
+  const {pathname} = useRouter();
   return (
     <Link href={href}>
       <ListItem component={'a'} button sx={{
         borderRadius: '1rem'
-      }}>
+      }} selected={pathname===href}>
         <ListItemIcon>
           <IconComponent/>
         </ListItemIcon>
@@ -79,7 +80,7 @@ const MainLayout = ({window, title, children}: MainProps) => {
   useEffect(() => {
     getInstance().get('user').then(
       (response) => {
-       setLoggedIn(true)
+        setLoggedIn(true)
       }
     ).catch(
       (error) => {
@@ -88,11 +89,11 @@ const MainLayout = ({window, title, children}: MainProps) => {
         })
       }
     )
-  }, [ setLoggedIn]);
+  }, [setLoggedIn]);
 
   const container = window !== undefined ? () => window().document.body : undefined;
   return (
-    <Box sx={{display: 'flex', backgroundColor: 'transparent',width:'100%'}}>
+    <Box sx={{display: 'flex', backgroundColor: 'transparent', width: '100%'}}>
       <NavBar title={title} handleDrawerToggle={handleDrawerToggle}/>
       <Box
         component="nav"
