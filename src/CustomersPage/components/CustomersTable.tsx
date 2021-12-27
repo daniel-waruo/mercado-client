@@ -12,7 +12,7 @@ import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import {Customer} from "../../../Types";
 import {getInstance} from "../../../axios";
-import {deleteItems} from "../../utils";
+import {deleteItems, protocolFix} from "../../utils";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
@@ -26,6 +26,9 @@ export default function CustomersTable({toggleFunction}: OrdersTableProps) {
   const [previous, setPrevious] = useState<string | null>(null)
 
   const fetchData = (link?: string) => {
+    if (link) {
+      link = protocolFix(link)
+    }
     getInstance().get(link || 'customers').then(
       (response) => {
         setCustomers(response.data.results)

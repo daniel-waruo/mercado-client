@@ -20,6 +20,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from 'next/link';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import {protocolFix} from "../../utils";
 
 type OrdersTableProps = {
   toggleFunction: (order: Order) => void,
@@ -36,7 +37,7 @@ export default function OrdersTable({toggleFunction, status}: OrdersTableProps) 
     if (link && status) {
       let href = new URL(link);
       href.searchParams.set('status', status);
-      url = href.toString()
+      url = protocolFix(href.toString())
     }
     getInstance().get(url).then(
       (response) => {

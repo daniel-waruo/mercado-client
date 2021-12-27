@@ -12,3 +12,11 @@ export const deleteItems = (item: string, itemId: number) => {
     }
   )
 }
+
+export const protocolFix = (link: string) => {
+  let href = new URL(link);
+  const location: Location = document.location
+  // make sure there are no mixed protocols
+  href.protocol = location.protocol
+  return href.toString()
+}
