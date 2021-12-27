@@ -15,6 +15,7 @@ import {Avatar} from "@mui/material";
 import Link from "next/link"
 import {getInstance} from "../../axios";
 import Router, {useRouter} from "next/router";
+import {createTheme, ThemeProvider} from "@mui/system";
 
 const drawerWidth = 200;
 
@@ -28,19 +29,31 @@ type SideBarItemProps = {
   href: string,
   iconComponent: React.FC
 }
+
+const theme = createTheme({
+  components: {
+
+  },
+});
+
 export const SideBarItem = ({text, href, iconComponent: IconComponent}: SideBarItemProps) => {
   const {pathname} = useRouter();
   return (
-    <Link href={href}>
-      <ListItem component={'a'} button sx={{
-        borderRadius: '1rem'
-      }} selected={pathname===href}>
-        <ListItemIcon>
-          <IconComponent/>
-        </ListItemIcon>
-        <ListItemText primary={text}/>
-      </ListItem>
-    </Link>
+      <Link href={href}>
+        <ListItem component={'a'}
+                  button
+                  sx={{
+                    overflow: "auto",
+                    width: "auto",
+                    borderRadius: '1rem'
+                  }}
+                  selected={pathname === href}>
+          <ListItemIcon>
+            <IconComponent/>
+          </ListItemIcon>
+          <ListItemText primary={text}/>
+        </ListItem>
+      </Link>
   )
 
 }

@@ -6,13 +6,15 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {Avatar, Button, Card, Chip} from "@mui/material";
+import {Button, Card, Chip, Grid} from "@mui/material";
 import {Box} from "@mui/system";
-import {Customer, Product} from "../../../Types";
+import {Product} from "../../../Types";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import {getInstance} from "../../../axios";
 import {deleteItems} from "../../utils";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 type TableProps = {
   toggleFunction: (product: Product) => void
@@ -20,16 +22,24 @@ type TableProps = {
 
 export default function InventoryTable({toggleFunction}: TableProps) {
   const [products, setProducts] = useState<Product[]>()
-  useEffect(() => {
-    getInstance().get('products').then(
+  const [next, setNext] = useState<string | null>(null)
+  const [previous, setPrevious] = useState<string | null>(null)
+
+  const fetchData = (link?: string) => {
+    getInstance().get(link || 'products').then(
       (response) => {
-        setProducts(response.data)
+        setProducts(response.data.results)
+        setNext(response.data.next)
+        setPrevious(response.data.previous)
       }
     ).catch(
       (error) => {
         console.error(error)
       }
     )
+  }
+  useEffect(() => {
+    fetchData()
   }, [setProducts]);
 
   return (
@@ -89,6 +99,33 @@ export default function InventoryTable({toggleFunction}: TableProps) {
           </TableBody>
         </Table>
       </TableContainer>
+      <Grid container>
+        <Grid item xs={6} sx={{textAlign: 'center'}}>
+          {previous &&
+          <Button
+            onClick={
+              () => {
+                fetchData(previous)
+              }
+            }
+            startIcon={<ArrowBackIcon/>}>Previous</Button>
+          }
+        </Grid>
+
+        <Grid item xs={6} sx={{textAlign: 'center'}}>
+          {next &&
+          <Button
+            onClick={
+              () => {
+                fetchData(next)
+              }
+            }
+            endIcon={<ArrowForwardIcon/>}>
+            Next
+          </Button>
+          }
+        </Grid>
+      </Grid>
     </Card>
   );
 }

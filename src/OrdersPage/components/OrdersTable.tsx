@@ -18,6 +18,8 @@ import PaymentMethod from "./PaymentMethod";
 import PhoneTwoToneIcon from '@mui/icons-material/PhoneTwoTone';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from 'next/link';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 type OrdersTableProps = {
   toggleFunction: (order: Order) => void,
@@ -26,20 +28,32 @@ type OrdersTableProps = {
 
 export default function OrdersTable({toggleFunction, status}: OrdersTableProps) {
   const [orders, setOrders] = useState<Order[]>()
-  useEffect(() => {
+  const [next, setNext] = useState<string | null>(null)
+  const [previous, setPrevious] = useState<string | null>(null)
+
+  const fetchOrders = (link?: string) => {
     let url = 'orders/'
-    if (status) url += `?status=${status}`
+    if (link && status) {
+      let href = new URL(link);
+      href.searchParams.set('status', status);
+      url = href.toString()
+    }
     getInstance().get(url).then(
       (response) => {
-        const data = response.data
+        const data = response.data.results
         setOrders(data)
+        setNext(response.data.next)
+        setPrevious(response.data.previous)
       }
     ).catch(
       (error) => {
         console.error(error)
       }
     )
-  }, [setOrders, status]);
+  }
+  useEffect(() => {
+    fetchOrders()
+  }, [setOrders]);
   return (
     <>
       <TextField
@@ -132,6 +146,32 @@ export default function OrdersTable({toggleFunction, status}: OrdersTableProps) 
           </TableBody>
         </Table>
       </TableContainer>
+      <Grid container>
+        <Grid item xs={6} sx={{textAlign: 'center'}}>
+          {previous &&
+          <Button
+            onClick={
+              () => {
+                fetchOrders(previous)
+              }
+            }
+            startIcon={<ArrowBackIcon/>}>Previous</Button>
+          }
+        </Grid>
+        <Grid item xs={6} sx={{textAlign: 'center'}}>
+          {next &&
+          <Button
+            onClick={
+              () => {
+                fetchOrders(next)
+              }
+            }
+            endIcon={<ArrowForwardIcon/>}>
+            Next
+          </Button>
+          }
+        </Grid>
+      </Grid>
     </>
   );
 }

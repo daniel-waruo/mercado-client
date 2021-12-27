@@ -68,19 +68,19 @@ const InventoryPage = () => {
             }
           }
         />
-        <Grid item xs={12} sm={6} lg={4}>
+        <Grid item xs={6} lg={4}>
           <DashboardCard
             title={'Total Items'}
             value={metrics.totalCount}
             icon={InventoryIcon}/>
         </Grid>
-        <Grid item xs={12} sm={6} lg={4}>
+        <Grid item xs={6} lg={4}>
           <DashboardCard
             title={'Inventory Value'}
             value={`Ksh.${metrics.inventoryValue}`}
             icon={ShowChartIcon}/>
         </Grid>
-        <Grid item xs={12} sm={12} lg={4}>
+        <Grid item xs={12} lg={4}>
           <DashboardCard
             title={'Expected Profit'}
             value={`Ksh.${metrics.expectedProfit}`}

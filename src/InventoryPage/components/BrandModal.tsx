@@ -42,7 +42,7 @@ function BrandModal({open, handleClose}: ModalProps) {
       // get all brands
       getInstance().get('brands').then(
         (response) => {
-          setBrands(response.data)
+          setBrands(response.data.results)
         }
       ).catch(
         (error) => {

@@ -13,7 +13,8 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import {Customer} from "../../../Types";
 import {getInstance} from "../../../axios";
 import {deleteItems} from "../../utils";
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 type OrdersTableProps = {
   toggleFunction: (customer: Customer) => void
@@ -21,16 +22,24 @@ type OrdersTableProps = {
 
 export default function CustomersTable({toggleFunction}: OrdersTableProps) {
   const [customers, setCustomers] = useState<Customer[]>()
-  useEffect(() => {
-    getInstance().get('customers').then(
+  const [next, setNext] = useState<string | null>(null)
+  const [previous, setPrevious] = useState<string | null>(null)
+
+  const fetchData = (link?: string) => {
+    getInstance().get(link || 'customers').then(
       (response) => {
-        setCustomers(response.data)
+        setCustomers(response.data.results)
+        setNext(response.data.next)
+        setPrevious(response.data.previous)
       }
     ).catch(
       (error) => {
         console.error(error)
       }
     )
+  }
+  useEffect(() => {
+    fetchData()
   }, [setCustomers]);
 
   return (
@@ -96,6 +105,33 @@ export default function CustomersTable({toggleFunction}: OrdersTableProps) {
           </TableBody>
         </Table>
       </TableContainer>
+      <Grid container>
+        <Grid item xs={6} sx={{textAlign: 'center'}}>
+          {previous &&
+          <Button
+            onClick={
+              () => {
+                fetchData(previous)
+              }
+            }
+            startIcon={<ArrowBackIcon/>}>Previous</Button>
+          }
+        </Grid>
+
+        <Grid item xs={6} sx={{textAlign: 'center'}}>
+          {next &&
+          <Button
+            onClick={
+              () => {
+                fetchData(next)
+              }
+            }
+            endIcon={<ArrowForwardIcon/>}>
+            Next
+          </Button>
+          }
+        </Grid>
+      </Grid>
     </Card>
   );
 }

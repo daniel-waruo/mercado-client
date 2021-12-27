@@ -40,7 +40,7 @@ function CategoryModal({open, handleClose}: ModalProps) {
       // get all categories
       getInstance().get('categories').then(
         (response) => {
-          setCategories(response.data)
+          setCategories(response.data.results)
         }
       ).catch(
         (error) => {

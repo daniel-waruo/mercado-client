@@ -48,7 +48,7 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
       // get all categories
       getInstance().get('categories').then(
         (response) => {
-          setCategories(response.data)
+          setCategories(response.data.results)
         }
       ).catch(
         (error) => {
@@ -59,7 +59,7 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
       // get all brands
       getInstance().get('brands').then(
         (response) => {
-          setBrands(response.data)
+          setBrands(response.data.results)
 
         }
       ).catch(
