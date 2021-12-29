@@ -12,11 +12,11 @@ export interface Product {
 
 export interface Customer {
   id?: number
-  name: string
-  phone: string
-  email: string
-  businessName: string
-  location: string
+  name: string | null
+  phone: string | null
+  email: string | null
+  businessName: string | null
+  location: string | null
   imageSrc?: string
 }
 

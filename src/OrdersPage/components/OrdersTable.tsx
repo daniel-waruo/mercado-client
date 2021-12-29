@@ -33,12 +33,11 @@ export default function OrdersTable({toggleFunction, status}: OrdersTableProps) 
   const [previous, setPrevious] = useState<string | null>(null)
 
   const fetchOrders = (link?: string) => {
-    let url = 'orders/'
-    if (link && status) {
-      let href = new URL(link);
+    const baseUrl =  `${getInstance().defaults.baseURL}orders/`
+    let href = link ?  new URL(link) : new URL(baseUrl) ;
+    if (status)
       href.searchParams.set('status', status);
-      url = protocolFix(href.toString())
-    }
+    const url = protocolFix(href.toString())
     getInstance().get(url).then(
       (response) => {
         const data = response.data.results

@@ -31,11 +31,11 @@ type OrderModalProps = {
 
 function CustomerModal({open, handleClose, initialCustomer}: OrderModalProps) {
   let [customer, setCustomer] = useState<Customer>({
-    name: '',
-    phone: '',
-    email: '',
-    businessName: '',
-    location: ''
+    name: null,
+    phone: null,
+    email: null,
+    businessName: null,
+    location: null
   });
   const [errors, setErrors] = useState<string[]>([]);
   useEffect(
@@ -69,7 +69,8 @@ function CustomerModal({open, handleClose, initialCustomer}: OrderModalProps) {
                 }
               )
             } else {
-              getInstance().put(`customers/${initialCustomer.id}/`, customer).then(
+              console.log(customer)
+              getInstance().put(`customers/${initialCustomer.id}/`, {...customer, businessName: undefined}).then(
                 (response) => {
                   handleClose()
                   Router.reload();
@@ -93,6 +94,7 @@ function CustomerModal({open, handleClose, initialCustomer}: OrderModalProps) {
               id="customer-name"
               sx={{marginY: '0.5rem'}}
               label="Name"
+              required
               defaultValue={initialCustomer?.name}
               onChange={
                 (e) => {
@@ -136,6 +138,7 @@ function CustomerModal({open, handleClose, initialCustomer}: OrderModalProps) {
               id="customer-phone"
               sx={{marginY: '0.5rem'}}
               label="Phone Number"
+              required
               defaultValue={initialCustomer?.phone}
               onChange={
                 (e) => {
@@ -147,6 +150,7 @@ function CustomerModal({open, handleClose, initialCustomer}: OrderModalProps) {
               variant="outlined"/>
             <TextField
               fullWidth
+              required
               sx={{marginY: '0.5rem'}}
               id="customer-location"
               label="Location"

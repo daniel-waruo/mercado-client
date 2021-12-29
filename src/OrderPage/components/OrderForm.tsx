@@ -99,7 +99,8 @@ const steps = [
 type OrderFormProps = {
   order?: Order,
   setOrder: (order: Order) => void,
-  cancelled: boolean
+  cancelled: boolean,
+  delivered: boolean
 }
 
 const CancelledForm = () => {
@@ -112,7 +113,7 @@ const CancelledForm = () => {
     </Box>
   )
 }
-const OrderForm = ({order, setOrder, cancelled}: OrderFormProps) => {
+const OrderForm = ({order, setOrder, cancelled,delivered}: OrderFormProps) => {
   // set stage
   let stage: number;
   switch (order?.status) {
@@ -137,6 +138,7 @@ const OrderForm = ({order, setOrder, cancelled}: OrderFormProps) => {
           <Stepper alternativeLabel activeStep={stage} connector={<ColorLibConnector/>}>
             {steps.map(({label, value}, index) => (
               <Step key={label} onClick={(e) => {
+                if (delivered) return
                 setOrderStatus(order, value).then(
                   () => setOrder({...order, status: value})
                 )
