@@ -113,6 +113,7 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
               {initialProduct ? 'Update Product' : 'New Product'}
             </Typography>
             <TextField
+              required
               fullWidth
               id="product-name"
               sx={{marginY: '0.5rem'}}
@@ -127,6 +128,7 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
               }
               variant="outlined"/>
             <TextField
+              required
               fullWidth
               id="product-sku"
               sx={{marginY: '0.5rem'}}
@@ -143,6 +145,7 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
             <FormControl fullWidth sx={{marginY: '0.5rem'}}>
               <InputLabel id="select-category-label">Category</InputLabel>
               <Select
+                required
                 labelId="select-category-label"
                 id="select-status"
                 defaultValue={initialProduct?.category}
@@ -168,6 +171,7 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
             <FormControl fullWidth sx={{marginY: '0.5rem'}}>
               <InputLabel id="select-category-label">Brand</InputLabel>
               <Select
+                required
                 labelId="select-category-label"
                 id="select-status"
                 defaultValue={initialProduct?.brand}
@@ -191,6 +195,7 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
               </Select>
             </FormControl>
             <TextField
+              required
               fullWidth
               type={"number"}
               id="product-cost"
@@ -209,6 +214,7 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
               }
               variant="outlined"/>
             <TextField
+              required
               fullWidth
               type={"number"}
               id="product-price"
@@ -229,6 +235,7 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
               }
               variant="outlined"/>
             <TextField
+              required
               fullWidth
               inputProps={{
                 step: 1
@@ -248,7 +255,8 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
               variant="outlined"/>
             <Grid container justifyContent={'center'} paddingY={'1rem'}>
               <Grid item>
-                <Button type={'submit'} variant={'contained'}>
+                <Button
+                  sx={{borderRadius:"1rem",paddingX:"3rem"}} type={'submit'} variant={'contained'}>
                   Submit
                 </Button>
               </Grid>

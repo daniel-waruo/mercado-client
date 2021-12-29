@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {Button, Card, Chip, Grid, Typography} from "@mui/material";
+import {Button, Card, Chip, Grid, InputAdornment, TextField, Typography} from "@mui/material";
 import {Box} from "@mui/system";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -15,6 +15,8 @@ import {getInstance} from "../../../axios";
 import {deleteItems, protocolFix} from "../../utils";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import SearchIcon from "@mui/icons-material/Search";
+import PhoneTwoToneIcon from "@mui/icons-material/PhoneTwoTone";
 
 type OrdersTableProps = {
   toggleFunction: (customer: Customer) => void
@@ -49,8 +51,25 @@ export default function CustomersTable({toggleFunction}: OrdersTableProps) {
     <Card sx={{
       minWidth: '100%',
       borderRadius: '1rem',
-      padding: '1rem'
+      paddingX: '1.5rem'
     }}>
+      <TextField
+        sx={{
+          marginBottom: '2rem',
+          marginTop: "1rem",
+        }}
+        helperText={"Enter the name of the customer you want to search for"}
+        label="Search"
+        variant="standard"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon/>
+            </InputAdornment>
+          ),
+        }}
+        fullWidth
+      />
       <TableContainer component={Box}>
         <Table sx={{width: '100%'}} aria-label="simple table">
           <TableHead>
@@ -79,19 +98,28 @@ export default function CustomersTable({toggleFunction}: OrdersTableProps) {
                 <TableCell align="left">
                   <Grid container spacing={0.2} justifyContent={'left'}>
                     <Grid item xs={12} sx={{paddingY: '0.1rem'}}>
-                      <Chip label={customer.phone} variant="outlined" sx={{paddingX: '0.3rem'}}/>
+                      {
+                        customer.phone ?
+                          <a href={`tel:+${customer.phone}`}>
+                            <Chip icon={<PhoneTwoToneIcon/>} label={"+"+customer.phone} variant="outlined"
+                                  sx={{paddingX: '0.3rem'}}/>
+                          </a> : null
+                      }
+
                     </Grid>
                   </Grid>
                 </TableCell>
                 <TableCell align="left">{customer.location}</TableCell>
                 <TableCell align="left">
-                  <Button variant={'outlined'} onClick={() => toggleFunction(customer)}>
-                    <ModeEditOutlinedIcon/>
+                  <Button
+                    startIcon={<ModeEditOutlinedIcon/>}
+                    onClick={() => toggleFunction(customer)}>
+                    EDIT
                   </Button>
                 </TableCell>
                 <TableCell align="left">
                   <Button
-                    variant={'outlined'}
+                    startIcon={<DeleteOutlineOutlinedIcon/>}
                     onClick={
                       () => {
                         if (customer?.id) {
@@ -100,7 +128,7 @@ export default function CustomersTable({toggleFunction}: OrdersTableProps) {
                       }
                     }
                     color={"warning"}>
-                    <DeleteOutlineOutlinedIcon/>
+                    DELETE
                   </Button>
                 </TableCell>
               </TableRow>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import {Button, Grid, IconButton, ListItem, TextField, Typography} from "@mui/material";
+import {Button, Grid, ListItem, TextField, Typography} from "@mui/material";
 import {getInstance} from "../../../axios";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
@@ -62,39 +62,49 @@ function CategoryModal({open, handleClose}: ModalProps) {
           <Typography textAlign={'center'} fontWeight={'light'} sx={{paddingBottom: '2rem'}} variant={'h4'}>
             Categories
           </Typography>
-            <form onSubmit={
-              (e) => {
-                getInstance().post('categories/', {name}).then(
-                  (response) => {
-                    handleClose()
-                    Router.reload()
-                  }
-                ).catch(
-                  (error) => {
-                    const res = error.response;
-                  }
-                )
+          <form onSubmit={
+            (e) => {
+              getInstance().post('categories/', {name}).then(
+                (response) => {
+                  handleClose()
+                  Router.reload()
+                }
+              ).catch(
+                (error) => {
+                  const res = error.response;
+                }
+              )
 
-                e.preventDefault();
-              }}
-            >
-              <Grid container spacing={3} justifyContent={'center'}>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    id="category"
-                    required={true}
-                    onChange={e=>{setName(e.target.value)}}
-                    variant={"standard"}
-                    label="Name"/>
-                </Grid>
-                <Grid item>
-                  <Button type={"submit"} startIcon={<AddIcon/>} variant={'outlined'} sx={{marginY: 0}}>
-                    Add Category
-                  </Button>
-                </Grid>
+              e.preventDefault();
+            }}
+          >
+            <Grid container spacing={3} justifyContent={'center'}>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  id="category"
+                  required={true}
+                  onChange={e => {
+                    setName(e.target.value)
+                  }}
+                  variant={"standard"}
+                  label="Name"/>
               </Grid>
-            </form>
+              <Grid item>
+                <Button
+                  type={"submit"}
+                  startIcon={<AddIcon/>}
+                  variant={'contained'}
+                  color={"secondary"}
+                  sx={{
+                    marginY: 0,
+                    borderRadius:"1rem"
+                  }}>
+                  Add Category
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
           <List>
             {categories.map(
               ({id, name}) => (
@@ -102,11 +112,15 @@ function CategoryModal({open, handleClose}: ModalProps) {
                   button
                   key={id}
                   secondaryAction={
-                    <IconButton onClick={
-                      () => deleteItems('categories', id)
-                    } edge="end" aria-label="delete">
-                      <DeleteIcon/>
-                    </IconButton>
+                    <Button
+                      startIcon={<DeleteIcon/>}
+                      color={"warning"}
+                      onClick={
+                        () => deleteItems('categories', id)
+                      }
+                    >
+                      DELETE
+                    </Button>
                   }
                   sx={{
                     borderRadius: '1rem',

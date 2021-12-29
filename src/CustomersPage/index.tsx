@@ -15,7 +15,7 @@ const CustomersPage = () => {
   const [open, setOpen] = useState(false);
   const [customer, setCustomer] = useState<Customer | undefined>();
   const [metrics, setMetrics] = useState<CustomerMetrics>({
-    totalCustomer:  0,
+    totalCustomer: 0,
     avgCustomerRevenue: 0,
     conversionRate: 0
   })
@@ -64,8 +64,11 @@ const CustomersPage = () => {
         <Grid item xs={12}>
           <Grid container>
             <Grid item>
-              <Button onClick={() => setOpen(true)} variant={'contained'}>
-                <AddIcon/>
+              <Button
+                startIcon={<AddIcon/>}
+                style={{borderRadius:"1rem"}}
+                onClick={() => setOpen(true)}
+                variant={'contained'}>
                 New Customer
               </Button>
             </Grid>

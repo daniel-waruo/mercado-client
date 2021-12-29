@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {Button, Card, Chip, Grid} from "@mui/material";
+import {Button, Card, Chip, Grid, InputAdornment, TextField} from "@mui/material";
 import {Box} from "@mui/system";
 import {Product} from "../../../Types";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
@@ -15,6 +15,7 @@ import {getInstance} from "../../../axios";
 import {deleteItems, protocolFix} from "../../utils";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import SearchIcon from "@mui/icons-material/Search";
 
 type TableProps = {
   toggleFunction: (product: Product) => void
@@ -51,6 +52,23 @@ export default function InventoryTable({toggleFunction}: TableProps) {
       borderRadius: '1rem',
       padding: '1rem'
     }}>
+      <TextField
+        sx={{
+          marginBottom: '2rem',
+          marginTop:"1rem",
+        }}
+        helperText={"Enter the name of the product you want to find "}
+        label="Search"
+        variant="standard"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon/>
+            </InputAdornment>
+          ),
+        }}
+        fullWidth
+        />
       <TableContainer component={Box}>
         <Table sx={{width: '100%'}} aria-label="simple table">
           <TableHead>
@@ -79,13 +97,14 @@ export default function InventoryTable({toggleFunction}: TableProps) {
                 <TableCell align="left">Ksh {product.price}</TableCell>
                 <TableCell align="left">{product.inStock}</TableCell>
                 <TableCell align="left">
-                  <Button variant={'outlined'} onClick={() => toggleFunction(product)}>
-                    <ModeEditOutlinedIcon/>
+                  <Button startIcon={<ModeEditOutlinedIcon/>}
+                          onClick={() => toggleFunction(product)}>
+                    EDIT
                   </Button>
                 </TableCell>
                 <TableCell align="left">
                   <Button
-                    variant={'outlined'}
+                    startIcon={<DeleteOutlineOutlinedIcon/>}
                     onClick={
                       () => {
                         if (product?.id) {
@@ -94,7 +113,7 @@ export default function InventoryTable({toggleFunction}: TableProps) {
                       }
                     }
                     color={"warning"}>
-                    <DeleteOutlineOutlinedIcon/>
+                    DELETE
                   </Button>
                 </TableCell>
               </TableRow>

@@ -22,6 +22,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {protocolFix} from "../../utils";
 
+
 type OrdersTableProps = {
   toggleFunction: (order: Order) => void,
   status?: 'fin' | 'prep' | 'ship' | 'can'
@@ -33,8 +34,8 @@ export default function OrdersTable({toggleFunction, status}: OrdersTableProps) 
   const [previous, setPrevious] = useState<string | null>(null)
 
   const fetchOrders = (link?: string) => {
-    const baseUrl =  `${getInstance().defaults.baseURL}orders/`
-    let href = link ?  new URL(link) : new URL(baseUrl) ;
+    const baseUrl = `${getInstance().defaults.baseURL}orders/`
+    let href = link ? new URL(link) : new URL(baseUrl);
     if (status)
       href.searchParams.set('status', status);
     const url = protocolFix(href.toString())
@@ -123,23 +124,23 @@ export default function OrdersTable({toggleFunction, status}: OrdersTableProps) 
                 <TableCell align="left">
                   {
                     row.buyer?.phone ?
-                      <a href={`tel:${row.buyer?.phone}`}>
-                        <Chip icon={<PhoneTwoToneIcon/>} label={row.buyer?.phone} variant="outlined"
+                      <a href={`tel:+${row.buyer.phone}`}>
+                        <Chip icon={<PhoneTwoToneIcon/>} label={"+" + row.buyer.phone} variant="outlined"
                               sx={{paddingX: '0.3rem'}}/>
                       </a> : null
                   }
                 </TableCell>
                 <TableCell align="left">
-                  <Button onClick={() => toggleFunction(row)}>
-                    <ModeEditOutlinedIcon/>
-                  </Button>
-                </TableCell>
-                <TableCell align="left">
                   <Link passHref href={'/orders/[id]'} as={`/orders/${row.id}`}>
-                    <Button>
-                      <VisibilityIcon/>
+                    <Button startIcon={<VisibilityIcon/>}>
+                      View
                     </Button>
                   </Link>
+                </TableCell>
+                <TableCell align="left">
+                  <Button startIcon={<ModeEditOutlinedIcon/>} onClick={() => toggleFunction(row)}>
+                    Edit
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

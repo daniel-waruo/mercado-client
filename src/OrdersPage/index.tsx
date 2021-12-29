@@ -68,19 +68,6 @@ const OrdersPage = () => {
         <OrderModal
           order={order}
           handleClose={() => setOpen(false)} open={open}/>
-        <Grid item xs={12}>
-          <Grid container>
-            <Grid item>
-              <Button variant={'contained'}
-                      onClick={() => {
-                        window.print()
-                      }}>
-                <LocalPrintshopIcon/>
-                Order Report
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
         <Grid item xs={6} md={4}>
           <DashboardCard
             title={'Total Orders'}

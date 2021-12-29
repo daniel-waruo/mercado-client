@@ -5,14 +5,13 @@ import ShowChartIcon from "@mui/icons-material/ShowChart";
 import React, {useEffect, useState} from "react";
 import InventoryTable from "./components/InventoryTable";
 import InventoryIcon from '@mui/icons-material/Inventory';
-import AddIcon from "@mui/icons-material/Add";
 import {InventoryMetrics, Product} from "../../Types";
 import InventoryModal from "./components/InventoryModal";
 import {getInstance} from "../../axios";
-import LinkIcon from '@mui/icons-material/Link';
 import CategoryModal from "./components/CategoryModal";
 import BrandModal from "./components/BrandModal";
 
+import {SettingsTwoTone as SettingsIcon,AddTwoTone as AddIcon,SaveTwoTone as SaveIcon} from '@mui/icons-material';
 
 const InventoryPage = () => {
   const [open, setOpen] = useState(false);
@@ -89,30 +88,46 @@ const InventoryPage = () => {
         <Grid item xs={12}>
           <Grid container spacing={3}>
             <Grid item>
-              <Button onClick={() => {
-                setOpen(true)
-                setModal("inventory")
-              }} variant={'contained'}>
-                <AddIcon/>
+              <Button
+                style={{
+                  borderRadius: "1rem"
+                }}
+                startIcon={<AddIcon/>}
+                onClick={() => {
+                  setOpen(true)
+                  setModal("inventory")
+                }} variant={'contained'}>
+
                 Add Product
               </Button>
             </Grid>
             <Grid item>
-              <Button onClick={() => {
-                setOpen(true)
-                setModal("categories")
-              }} variant={'contained'}>
-                <LinkIcon/>
+              <Button
+                style={{
+                  borderRadius: "1rem"
+                }}
+                startIcon={<SettingsIcon/>}
+                variant={"contained"}
+                color={"secondary"}
+                onClick={() => {
+                  setOpen(true)
+                  setModal("categories")
+                }}>
                 Manage Categories
               </Button>
             </Grid>
             <Grid item>
               <Button
+                style={{
+                  borderRadius: "1rem"
+                }}
+                startIcon={<SettingsIcon/>}
+                variant={"outlined"}
+                color={"secondary"}
                 onClick={() => {
                   setOpen(true)
                   setModal("brands")
-                }} variant={'contained'}>
-                <LinkIcon/>
+                }}>
                 Manage Brands
               </Button>
             </Grid>

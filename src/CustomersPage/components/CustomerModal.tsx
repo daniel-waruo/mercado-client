@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import {Button, Grid, TextField, Typography} from "@mui/material";
+import {Backdrop, Button, CircularProgress, Grid, TextField, Typography} from "@mui/material";
 import {Customer} from "../../../Types";
 import {getInstance} from "../../../axios";
 import Router from "next/router";
@@ -37,6 +37,8 @@ function CustomerModal({open, handleClose, initialCustomer}: OrderModalProps) {
     businessName: null,
     location: null
   });
+  let [loading,setLoading] = useState(false)
+
   const [errors, setErrors] = useState<string[]>([]);
   useEffect(
     () => {
@@ -54,6 +56,7 @@ function CustomerModal({open, handleClose, initialCustomer}: OrderModalProps) {
       >
         <form onSubmit={
           (e) => {
+            setLoading(true)
             // @ts-ignore
             customer['business_name'] = customer.businessName
             if (!initialCustomer) {
@@ -67,24 +70,31 @@ function CustomerModal({open, handleClose, initialCustomer}: OrderModalProps) {
                   const res = error.response;
                   setErrors(res.data.non_field_errors);
                 }
-              )
+              ).finally(()=>setLoading(false))
             } else {
               console.log(customer)
               getInstance().put(`customers/${initialCustomer.id}/`, {...customer, businessName: undefined}).then(
                 (response) => {
                   handleClose()
-                  Router.reload();
+                  //Router.reload();
                 }
               ).catch(
                 (error) => {
                   const res = error.response.data;
                   setErrors(res.data);
                 }
-              )
+              ).finally(()=>setLoading(false))
             }
             e.preventDefault();
           }
         }>
+          <Backdrop
+            sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+            open={loading}
+            onClick={handleClose}
+          >
+            <CircularProgress color="inherit"/>
+          </Backdrop>
           <Box sx={style}>
             <Typography textAlign={'center'} fontWeight={'light'} sx={{paddingBottom: '2rem'}} variant={'h4'}>
               {initialCustomer ? 'Update Customer' : 'New Customer'}

@@ -95,7 +95,15 @@ function BrandModal({open, handleClose}: ModalProps) {
                   label="Name"/>
               </Grid>
               <Grid item>
-                <Button type={"submit"} startIcon={<AddIcon/>} variant={'outlined'} sx={{marginY: 0}}>
+                <Button
+                  type={"submit"}
+                  startIcon={<AddIcon/>}
+                  color={"secondary"}
+                  variant={'outlined'}
+                  sx={{
+                    marginY: 0,
+                    borderRadius:"1rem"
+                  }}>
                   Add Brand
                 </Button>
               </Grid>
@@ -108,11 +116,15 @@ function BrandModal({open, handleClose}: ModalProps) {
                   button
                   key={id}
                   secondaryAction={
-                    <IconButton onClick={
-                      () => deleteItems('brands', id)
-                    } edge="end" aria-label="delete">
-                      <DeleteIcon/>
-                    </IconButton>
+                    <Button
+                      startIcon={<DeleteIcon/>}
+                      color={"warning"}
+                      onClick={
+                        () => deleteItems('brands', id)
+                      }
+                    >
+                      DELETE
+                    </Button>
                   }
                   sx={{borderRadius: '1rem'}}>
                   <ListItemText primary={name}/>

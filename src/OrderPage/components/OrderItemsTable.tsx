@@ -1,27 +1,22 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {Avatar, Button, Card, Chip} from "@mui/material";
+import {Chip} from "@mui/material";
 import {Box} from "@mui/system";
-import {Customer, Order, OrderItem, Product} from "../../../Types";
-import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import {getInstance} from "../../../axios";
-import {deleteItems} from "../../utils";
+import {OrderItem} from "../../../Types";
 
 type TableProps = {
-  items:OrderItem[]
+  items: OrderItem[]
 }
 
 export default function OrderItemsTable({items}: TableProps) {
 
   return (
-    <Box sx={{paddingY:"3rem"}}>
+    <Box sx={{paddingY: "3rem"}}>
       <TableContainer component={Box}>
         <Table sx={{width: '100%'}} aria-label="simple table">
           <TableHead>
