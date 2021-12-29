@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {Order} from "../../Types";
 import {useRouter} from "next/router";
 import OrderItemsTable from "./components/OrderItemsTable";
-import {Button, Card, CardActionArea, CardActions, CardContent, Grid, lighten, Typography} from "@mui/material";
+import {Button, Card, CardActionArea, CardActions, CardContent, Chip, Grid, lighten, Typography} from "@mui/material";
 import {Box} from "@mui/system";
 import {getInstance} from "../../axios";
 import OrderForm from "./components/OrderForm";
@@ -51,6 +51,7 @@ const OrderPage = () => {
               <OrderItemsTable items={order?.items || []}/>
             </Grid>
             <Grid item xs={12} md={3} alignItems={"center"}>
+
               <Card sx={{
                 padding: "1.5rem",
                 paddingBottom: "0.5rem",
@@ -61,6 +62,9 @@ const OrderPage = () => {
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                       {order.buyer?.name || "Unknown"}
+                    </Typography>
+                    <Typography fontWeight={'light'} gutterBottom variant="h6" component="div">
+                      Customer Details
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       <LocalPhoneIcon sx={{fontSize: "1rem"}}/><span
