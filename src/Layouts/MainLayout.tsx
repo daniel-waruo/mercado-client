@@ -11,11 +11,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import NavBar from "../NavBar";
-import {Avatar} from "@mui/material";
+import {Avatar, Fade} from "@mui/material";
 import Link from "next/link"
 import {getInstance} from "../../axios";
 import Router, {useRouter} from "next/router";
-import {createTheme, ThemeProvider} from "@mui/system";
+import {createTheme} from "@mui/system";
 
 const drawerWidth = 200;
 
@@ -31,48 +31,57 @@ type SideBarItemProps = {
 }
 
 const theme = createTheme({
-  components: {
-
-  },
+  components: {},
 });
 
 export const SideBarItem = ({text, href, iconComponent: IconComponent}: SideBarItemProps) => {
   const {pathname} = useRouter();
   return (
-      <Link href={href}>
-        <ListItem component={'a'}
-                  button
-                  sx={{
-                    overflow: "auto",
-                    width: "auto",
-                    borderRadius: '1rem'
-                  }}
-                  selected={pathname === href}>
-          <ListItemIcon>
-            <IconComponent/>
-          </ListItemIcon>
-          <ListItemText primary={text}/>
-        </ListItem>
-      </Link>
+    <Link href={href}>
+      <ListItem component={'a'}
+                button
+                sx={{
+                  overflow: "auto",
+                  width: "auto",
+                  borderRadius: '1rem'
+                }}
+                selected={pathname === href}>
+        <ListItemIcon>
+          <IconComponent/>
+        </ListItemIcon>
+        <ListItemText primary={text}/>
+      </ListItem>
+    </Link>
   )
 
 }
 const SideBar = () => {
   return (
     <Box border={'none'} sx={{backgroundColor: 'primary.light', height: '100%', paddingLeft: '1rem'}}>
-      <div style={{paddingTop: 30, paddingBottom: 10}}>
-        <Avatar
-          alt="Patterns Logo"
-          src="/logo.png"
-          variant={'rounded'}
-          sx={{
-            width: 150,
-            height: 150,
-            margin: 'auto',
-            backgroundColor: 'black',
-          }}
-        />
-      </div>
+      <Box sx={{
+        marginTop: "30px",
+        marginBottom: "10px",
+        marginX: "auto",
+        height: 150,
+        width: 150,
+        borderRadius: "1rem",
+        background: "white"
+      }}>
+        <Fade in={true} timeout={1000}>
+          <Avatar
+            alt="Patterns Logo"
+            src="/logo.png"
+            variant={'rounded'}
+            sx={{
+              width: 150,
+              height: 150,
+              marginX: 'auto',
+              backgroundColor: 'white',
+              borderRadius: "1rem",
+            }}
+          />
+        </Fade>
+      </Box>
       <List>
         <SideBarItem href={'/'} text={'Dashboard'} iconComponent={DashboardIcon}/>
         <SideBarItem href={'/orders'} text={'Orders'} iconComponent={InboxIcon}/>

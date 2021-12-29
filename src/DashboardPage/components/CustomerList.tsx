@@ -40,7 +40,7 @@ export default function CustomerList() {
               return (
                 <ListItem alignItems="flex-start" key={id}>
                   <ListItemAvatar>
-                    <Avatar alt={name} src={imageSrc}/>
+                    <Avatar alt={name as string} src={imageSrc}/>
                   </ListItemAvatar>
                   <ListItemText
                     primary={name}
