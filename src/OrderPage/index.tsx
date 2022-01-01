@@ -62,7 +62,7 @@ const OrderPage = () => {
                            cancelled={order.status == "can"}
                            delivered={order.status == "fin"}/>
                 <OrderItemsTable items={order?.items || []}/>
-                <h3 style={{paddingLeft:"1rem",fontWeight:"lighter"}}>Grand Total -> Ksh. {order.total}</h3>
+                <h3 style={{paddingLeft:"1rem",fontWeight:"lighter"}}>Grand Total -&gt; Ksh. {order.total}</h3>
               </Grid>
               <Grid item xs={12} md={6} lg={3} alignItems={"center"}>
 
