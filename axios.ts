@@ -10,7 +10,7 @@ export const getInstance = () => {
   }
   return axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api/`,
-    timeout: 5000,
+    timeout: 10000,
     headers,
   });
 }

@@ -16,7 +16,7 @@ type TableProps = {
 export default function OrderItemsTable({items}: TableProps) {
 
   return (
-    <Box sx={{paddingY: "3rem"}}>
+    <Box sx={{paddingTop: "3rem"}}>
       <TableContainer component={Box}>
         <Table sx={{width: '100%'}} aria-label="simple table">
           <TableHead>
@@ -24,8 +24,9 @@ export default function OrderItemsTable({items}: TableProps) {
               <TableCell align={"left"}>Sku</TableCell>
               <TableCell align="left">Name</TableCell>
               <TableCell align="left">Category</TableCell>
-              <TableCell align="left">Cost</TableCell>
               <TableCell align="left">Price</TableCell>
+              <TableCell align="left">Quantity</TableCell>
+
             </TableRow>
           </TableHead>
           <TableBody>
@@ -39,8 +40,10 @@ export default function OrderItemsTable({items}: TableProps) {
                 <TableCell align="left">
                   <Chip label={item.product.categoryName} variant="outlined" sx={{paddingX: '0.3rem'}}/>
                 </TableCell>
-                <TableCell align="left">Ksh {item.cost}</TableCell>
-                <TableCell align="left">Ksh {item.price}</TableCell>
+
+                <TableCell align="left">Ksh. {item.price}</TableCell>
+                <TableCell align="left">{item.quantity}</TableCell>
+                <TableCell align="left">Ksh. {item.price * item.quantity}</TableCell>
               </TableRow>
             ))}
           </TableBody>
