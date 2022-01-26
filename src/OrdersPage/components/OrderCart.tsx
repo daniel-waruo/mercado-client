@@ -11,8 +11,9 @@ type OrderCartProps = {
   products?: CartProduct[],
   addToCart: (product: Product) => void
   removeFromCart: (product: Product) => void
+  updateCart: (product: Product,quantity:number) => void
 }
-const OrderCart = ({products, addToCart, removeFromCart}: OrderCartProps) => {
+const OrderCart = ({products, removeFromCart,updateCart}: OrderCartProps) => {
 
   return (
     <>
@@ -42,11 +43,12 @@ const OrderCart = ({products, addToCart, removeFromCart}: OrderCartProps) => {
                     <Grid item xs={12} lg={4}>
                       <TextField type={"number"}
                                  onChange={
-                                   ()=>{
-
+                                   (e)=>{
+                                     const quantity = e.target.value;
+                                     updateCart(product.product, quantity as unknown as number);
                                    }
                                  }
-                                 defaultValue={product.quantity}
+                                 value={product.quantity}
                                  inputProps={{min: 1, step: 1}}
                                  label="Quantity" variant="standard"/>
                     </Grid>

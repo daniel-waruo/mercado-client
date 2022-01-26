@@ -2,14 +2,16 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import Modal from '@mui/material/Modal';
 import {Backdrop, CircularProgress, Fab, Grid, InputAdornment, TextField} from "@mui/material";
-import {CartProduct, Product} from "../../../Types";
+import {CartProduct, Customer, Product} from "../../../Types";
 import {getInstance} from "../../../axios";
 import {protocolFix} from "../../utils";
 import ProductCard from "./ProductCard";
 import {Box} from "@mui/system";
 import SearchIcon from "@mui/icons-material/Search";
 import OrderCart from "./OrderCart";
-import SendTwoToneIcon from '@mui/icons-material/SendTwoTone';
+import ChooseCustomer from "./ChooseCustomer";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -36,6 +38,8 @@ function AddOrderModal({open, handleClose}: AddOrderModalProps) {
   const [next, setNext] = useState<string | null>(null)
   const [previous, setPrevious] = useState<string | null>(null)
   const [cartProducts, setCartProducts] = useState<CartProduct[]>([]);
+  const [customer, setCustomer] = useState<Customer>()
+  const [showCustomer, setShowCustomer] = useState<boolean>()
 
   let [loading, setLoading] = useState(false)
 
@@ -45,7 +49,7 @@ function AddOrderModal({open, handleClose}: AddOrderModalProps) {
     }
     getInstance().get(link || 'products').then(
       (response) => {
-        setProducts(response.data.results.slice(1, 3))
+        setProducts(response.data.results)
         setNext(response.data.next)
         setPrevious(response.data.previous)
       }
@@ -78,7 +82,7 @@ function AddOrderModal({open, handleClose}: AddOrderModalProps) {
       )
     ])
   }
-  const updateCart = (product: Product, quantity: int) => {
+  const updateCart = (product: Product, quantity: number) => {
     let products = [
       ...cartProducts.filter(
         ({product: {id}}) => id != product.id
@@ -119,53 +123,63 @@ function AddOrderModal({open, handleClose}: AddOrderModalProps) {
           <Box sx={style}>
             <Grid container spacing={2}>
               <Grid item xs={9}>
-                <h1 style={{
-                  textAlign: 'center',
-                  fontWeight: 150
-                }}>Order Products</h1>
-                <TextField
-                  sx={{
-                    marginBottom: '2rem'
-                  }}
-                  label="Search"
-                  variant="standard"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon/>
-                      </InputAdornment>
-                    ),
-                  }}
-                  style={{
-                    width: "40%"
-                  }}/>
-                <Grid container spacing={2}>
-                  {products?.map(
-                    (product, index) => {
-                      return (
-                        <Grid item xs={6} md={3} key={index}>
-                          <ProductCard product={product}
-                                       selected={
-                                         Boolean(cartProducts.find(({product: {id}}) => id == product.id))
-                                       }
-                                       removeFromCart={removeFromCart}
-                                       addToCart={addToCart}/>
+                {
+                  cartProducts.length && showCustomer ?
+                    <ChooseCustomer customer={customer} setCustomer={setCustomer}/>
+                    :
+                    (<>
+                        <h1 style={{
+                          textAlign: 'center',
+                          fontWeight: 150
+                        }}>Order Products</h1>
+                        <TextField
+                          sx={{
+                            marginBottom: '2rem'
+                          }}
+                          label="Search"
+                          variant="standard"
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <SearchIcon/>
+                              </InputAdornment>
+                            ),
+                          }}
+                          style={{
+                            width: "40%"
+                          }}/>
+                        <Grid container spacing={2}>
+                          {products?.map(
+                            (product, index) => {
+                              return (
+                                <Grid item xs={6} md={3} key={index}>
+                                  <ProductCard product={product}
+                                               selected={
+                                                 Boolean(cartProducts.find(({product: {id}}) => id == product.id))
+                                               }
+                                               removeFromCart={removeFromCart}
+                                               addToCart={addToCart}/>
+                                </Grid>
+                              )
+                            }
+                          )}
                         </Grid>
-                      )
-                    }
-                  )}
-                </Grid>
+                      </>
+                    )
+                }
               </Grid>
               <Grid item xs={3}>
                 <OrderCart products={cartProducts}
+                           updateCart={updateCart}
                            addToCart={addToCart}
                            removeFromCart={removeFromCart}/>
               </Grid>
             </Grid>
+
             <Fab
               onClick={
                 () => {
-                  console.log(cartProducts)
+                  setShowCustomer(true)
                 }
               }
               sx={{
@@ -174,8 +188,28 @@ function AddOrderModal({open, handleClose}: AddOrderModalProps) {
                 bottom: 10,
                 margin: "2rem"
               }} color="primary" aria-label="add">
-              <SendTwoToneIcon/>
+              <ArrowForwardIosIcon/>
             </Fab>
+            {
+              cartProducts.length && showCustomer ?
+                <Fab
+                  onClick={
+                    () => {
+                      setShowCustomer(false)
+                      setCustomer(undefined)
+                    }
+                  }
+                  sx={{
+                    position: "fixed",
+                    left: 10,
+                    bottom: 10,
+                    margin: "2rem"
+                  }} color="secondary" aria-label="add">
+                  <ArrowBackIosIcon/>
+                </Fab>
+                :
+                null
+            }
           </Box>
         </form>
       </Modal>
