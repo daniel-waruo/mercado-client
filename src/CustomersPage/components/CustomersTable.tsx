@@ -9,10 +9,9 @@ import TableRow from '@mui/material/TableRow';
 import {Button, Card, Chip, Grid, InputAdornment, TextField, Typography} from "@mui/material";
 import {Box} from "@mui/system";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import {Customer} from "../../../Types";
 import {getInstance} from "../../../axios";
-import {deleteItems, protocolFix} from "../../utils";
+import {protocolFix} from "../../utils";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import SearchIcon from "@mui/icons-material/Search";
@@ -101,7 +100,7 @@ export default function CustomersTable({toggleFunction}: OrdersTableProps) {
                       {
                         customer.phone ?
                           <a href={`tel:+${customer.phone}`}>
-                            <Chip icon={<PhoneTwoToneIcon/>} label={"+"+customer.phone} variant="outlined"
+                            <Chip icon={<PhoneTwoToneIcon/>} label={"+" + customer.phone} variant="outlined"
                                   sx={{paddingX: '0.3rem'}}/>
                           </a> : null
                       }
@@ -111,24 +110,10 @@ export default function CustomersTable({toggleFunction}: OrdersTableProps) {
                 </TableCell>
                 <TableCell align="left">{customer.location}</TableCell>
                 <TableCell align="left">
-                  <Button
+                  <Button variant={"outlined"}
                     startIcon={<ModeEditOutlinedIcon/>}
                     onClick={() => toggleFunction(customer)}>
                     EDIT
-                  </Button>
-                </TableCell>
-                <TableCell align="left">
-                  <Button
-                    startIcon={<DeleteOutlineOutlinedIcon/>}
-                    onClick={
-                      () => {
-                        if (customer?.id) {
-                          deleteItems('customers', customer.id)
-                        }
-                      }
-                    }
-                    color={"warning"}>
-                    DELETE
                   </Button>
                 </TableCell>
               </TableRow>

@@ -70,3 +70,8 @@ export interface InventoryMetrics {
   inventoryValue: number
   expectedProfit: number
 }
+
+export interface CartProduct {
+  product: Product,
+  quantity: number
+}

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {ChangeEventHandler, useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import {Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography} from "@mui/material";
+import {Avatar, Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography} from "@mui/material";
 import {Product} from "../../../Types";
 import {getInstance} from "../../../axios";
 import Router from "next/router";
@@ -40,7 +40,28 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
   });
   const [categories, setCategories] = useState<{ id: number, name: string }[]>([]);
   const [brands, setBrands] = useState<{ id: number, name: string }[]>([]);
+
   const [errors, setErrors] = useState<string[]>([]);
+  const [file, setFile] = useState<any>();
+
+  const onFileChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    // @ts-ignore
+    const fileReader = new FileReader();
+    // @ts-ignore
+    const fileHandler: ProgressEvent<FileReader> = (e) => {
+      setFile(e.target.result);
+    }
+    console.log(fileReader)
+    // @ts-ignore
+    fileReader.onload = fileHandler
+    // @ts-ignore
+    fileReader.readAsDataURL(event.target.files[0]);
+  }
+  const onFileUpload = () => {
+    // This is upload.
+    console.log("This is real.")
+  }
+  console.log(file)
   useEffect(
     () => {
       // set initial product to state
@@ -70,6 +91,8 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
       )
     }, [setProduct, setBrands, initialProduct?.id]
   )
+
+  // @ts-ignore
   return (
     <>
       <Modal
@@ -112,6 +135,13 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
             <Typography textAlign={'center'} fontWeight={'light'} sx={{paddingBottom: '2rem'}} variant={'h4'}>
               {initialProduct ? 'Update Product' : 'New Product'}
             </Typography>
+            <div>
+              <Avatar src={file}/>
+              <input type="file" onChange={onFileChange}/>
+              <Button className="button">
+                Upload Photo
+              </Button>
+            </div>
             <TextField
               required
               fullWidth
@@ -256,7 +286,7 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
             <Grid container justifyContent={'center'} paddingY={'1rem'}>
               <Grid item>
                 <Button
-                  sx={{borderRadius:"1rem",paddingX:"3rem"}} type={'submit'} variant={'contained'}>
+                  sx={{borderRadius: "1rem", paddingX: "3rem"}} type={'submit'} variant={'contained'}>
                   Submit
                 </Button>
               </Grid>

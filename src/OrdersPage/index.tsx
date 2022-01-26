@@ -8,7 +8,6 @@ import PaidIcon from '@mui/icons-material/Paid';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import OrderModal from "./components/OrderModal";
 import {DashboardMetrics, Order} from "../../Types";
-import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop';
 
 import {getInstance} from "../../axios";
 import Box from "@mui/material/Box";
@@ -16,9 +15,13 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import {useRouter} from "next/router";
+import {AddTwoTone as AddIcon, SettingsTwoTone as SettingsIcon} from "@mui/icons-material";
+import AddOrderModal from "./components/AddOrderModal";
 
 const OrdersPage = () => {
   const [open, setOpen] = useState(false);
+  const [openNew, setOpenNew] = useState(false);
+
   const [order, setOrder] = useState<Order | undefined>();
   const [metrics, setMetrics] = useState<DashboardMetrics>({
     totalOrders: 0,
@@ -68,6 +71,9 @@ const OrdersPage = () => {
         <OrderModal
           order={order}
           handleClose={() => setOpen(false)} open={open}/>
+        <AddOrderModal
+          open={openNew}
+          handleClose={() => setOpenNew(false)} />
         <Grid item xs={6} md={4}>
           <DashboardCard
             title={'Total Orders'}
@@ -86,6 +92,23 @@ const OrdersPage = () => {
             value={metrics.orderCancelRate + '%'}
             icon={ErrorOutlineIcon}/>
         </Grid>
+        <Grid item xs={12}>
+          <Grid container spacing={3}>
+            <Grid item>
+              <Button
+                style={{
+                  borderRadius: "1rem"
+                }}
+                startIcon={<AddIcon/>}
+                onClick={() => {
+                  setOpenNew(true)
+                }} variant={'contained'}>
+
+                Add Product
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
         <Grid item xs={12} textAlign={'right'}>
           <Box sx={{width: '100%'}}>
             <Card sx={{
@@ -97,12 +120,12 @@ const OrdersPage = () => {
                 <Tabs
                   variant="scrollable"
                   TabIndicatorProps={{style: {backgroundColor: color}}}
-                  sx={{'& .Mui-selected': {color: `${color}!important`},overflow:"auto",width:"auto"}}
+                  sx={{'& .Mui-selected': {color: `${color}!important`}, overflow: "auto", width: "auto"}}
                   value={value}
                   onChange={
                     (event: React.SyntheticEvent, newValue: number) => {
-                      push('/orders?index=' + newValue, '/orders?index=' + newValue,{scroll:false}).then(
-                        (data)=>{
+                      push('/orders?index=' + newValue, '/orders?index=' + newValue, {scroll: false}).then(
+                        (data) => {
                           console.log("go to orders tab")
                         }
                       )
