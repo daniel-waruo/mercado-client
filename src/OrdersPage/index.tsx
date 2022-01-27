@@ -104,7 +104,7 @@ const OrdersPage = () => {
                   setOpenNew(true)
                 }} variant={'contained'}>
 
-                Add Product
+                Make Order
               </Button>
             </Grid>
           </Grid>

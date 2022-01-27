@@ -8,12 +8,12 @@ import {CartProduct, Product} from "../../../Types";
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 
 type OrderCartProps = {
-  products?: CartProduct[],
+  cartProducts?: CartProduct[],
   addToCart: (product: Product) => void
   removeFromCart: (product: Product) => void
   updateCart: (product: Product,quantity:number) => void
 }
-const OrderCart = ({products, removeFromCart,updateCart}: OrderCartProps) => {
+const OrderCart = ({cartProducts, removeFromCart,updateCart}: OrderCartProps) => {
 
   return (
     <>
@@ -21,11 +21,11 @@ const OrderCart = ({products, removeFromCart,updateCart}: OrderCartProps) => {
         <ShoppingCartTwoToneIcon sx={{fontSize: "6rem"}}/>
       </div>
       {
-        products?.map(
-          (product) => {
+        cartProducts?.map(
+          (cartProduct) => {
             return (
               <Card
-                key={product.product.id}
+                key={cartProduct.product.id}
                 sx={{
                   minWidth: '100%',
                   borderRadius: '1rem',
@@ -38,24 +38,25 @@ const OrderCart = ({products, removeFromCart,updateCart}: OrderCartProps) => {
                 <CardContent>
                   <Grid container>
                     <Grid item xs={12} lg={8}>
-                      <Typography sx={{marginTop: '1rem'}} fontSize={20}>{product.product.name}</Typography>
+                      <Typography sx={{marginTop: '1rem'}} fontSize={20}>{cartProduct.product.name}</Typography>
+                      <Typography sx={{marginTop: '1rem'}} fontSize={10}>{cartProduct.product.price}</Typography>
                     </Grid>
                     <Grid item xs={12} lg={4}>
                       <TextField type={"number"}
                                  onChange={
                                    (e)=>{
                                      const quantity = e.target.value;
-                                     updateCart(product.product, quantity as unknown as number);
+                                     updateCart(cartProduct.product, quantity as unknown as number);
                                    }
                                  }
-                                 value={product.quantity}
+                                 value={cartProduct.quantity}
                                  inputProps={{min: 1, step: 1}}
                                  label="Quantity" variant="standard"/>
                     </Grid>
                   </Grid>
                   <Box
                     onClick={
-                      ()=>removeFromCart(product.product)
+                      ()=>removeFromCart(cartProduct.product)
                     }
                     sx={{
                       position: 'absolute',

@@ -20,7 +20,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from 'next/link';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import {protocolFix} from "../../utils";
+import {deleteItems, protocolFix} from "../../utils";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 
 type OrdersTableProps = {
@@ -140,6 +141,17 @@ export default function OrdersTable({toggleFunction, status}: OrdersTableProps) 
                 <TableCell align="left">
                   <Button startIcon={<ModeEditOutlinedIcon/>} onClick={() => toggleFunction(row)}>
                     Edit
+                  </Button>
+                </TableCell>
+                <TableCell align="left">
+                  <Button
+                    startIcon={<DeleteIcon/>}
+                    color={"warning"}
+                    onClick={
+                      () => deleteItems('orders', row.id as number)
+                    }
+                  >
+                    DELETE
                   </Button>
                 </TableCell>
               </TableRow>
