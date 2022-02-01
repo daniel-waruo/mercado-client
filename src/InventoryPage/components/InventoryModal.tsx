@@ -43,6 +43,7 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
 
   const [errors, setErrors] = useState<string[]>([]);
   const [file, setFile] = useState<any>();
+  const [blobFile, setBlobFile] = useState<Blob>();
 
   const onFileChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     // @ts-ignore
@@ -56,12 +57,10 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
     fileReader.onload = fileHandler
     // @ts-ignore
     fileReader.readAsDataURL(event.target.files[0]);
+    // @ts-ignore
+    setBlobFile(event.target.files[0])
   }
-  const onFileUpload = () => {
-    // This is upload.
-    console.log("This is real.")
-  }
-  console.log(file)
+
   useEffect(
     () => {
       // set initial product to state
@@ -101,46 +100,62 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <form onSubmit={
-          (e) => {
-            if (!initialProduct) {
-              getInstance().post('products/', product).then(
-                (response) => {
-                  handleClose()
-                  Router.reload()
-                }
-              ).catch(
-                (error) => {
-                  const res = error.response;
-                  setErrors(res.data.non_field_errors);
-                }
-              )
-            } else {
-              getInstance().put(`products/${initialProduct.id}/`, product).then(
-                (response) => {
-                  handleClose()
-                  Router.reload()
-                }
-              ).catch(
-                (error) => {
-                  const res = error.response.data;
-                  setErrors(res.data);
-                }
-              )
+        <form
+
+          onSubmit={
+            (e) => {
+              const data = new FormData(e.currentTarget);
+              for (const [key, value] of Object.entries(product)) {
+                console.log(`${key}: ${value}`);
+                data.append(key, value)
+              }
+              data.append('image', blobFile as Blob)
+              if (!initialProduct) {
+                getInstance().post('products/', data, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+                }).then(
+                  (response) => {
+                    handleClose()
+                    Router.reload()
+                  }
+                ).catch(
+                  (error) => {
+                    const res = error.response;
+                    setErrors(res.data.non_field_errors);
+                  }
+                )
+              } else {
+                getInstance().put(`products/${initialProduct.id}/`, data).then(
+                  (response) => {
+                    handleClose()
+                    Router.reload()
+                  }
+                ).catch(
+                  (error) => {
+                    const res = error.response.data;
+                    setErrors(res.data);
+                  }
+                )
+              }
+              e.preventDefault();
             }
-            e.preventDefault();
-          }
-        }>
+          }>
           <Box sx={style}>
             <Typography textAlign={'center'} fontWeight={'light'} sx={{paddingBottom: '2rem'}} variant={'h4'}>
               {initialProduct ? 'Update Product' : 'New Product'}
             </Typography>
-            <div>
-              <Avatar src={file}/>
-              <input type="file" onChange={onFileChange}/>
-              <Button className="button">
-                Upload Photo
-              </Button>
+            <div style={{textAlign: 'center'}}>
+              <Grid container justifyContent={'center'} spacing={2}>
+                <Grid item component={'label'}>
+                  <input style={{display: "none"}} type="file" onChange={onFileChange}/>
+                  <Avatar
+                    sx={{height: '10rem', width: '10rem'}}
+                    src={file}>
+                  </Avatar>
+                </Grid>
+              </Grid>
             </div>
             <TextField
               required
