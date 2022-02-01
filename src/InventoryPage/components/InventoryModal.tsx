@@ -97,8 +97,6 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
         <form
 
@@ -152,7 +150,7 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
                   <input style={{display: "none"}} type="file" onChange={onFileChange}/>
                   <Avatar
                     sx={{height: '10rem', width: '10rem'}}
-                    src={file}>
+                    src={file || product.image}>
                   </Avatar>
                 </Grid>
               </Grid>

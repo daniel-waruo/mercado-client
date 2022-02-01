@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {Button, Card, Chip, Grid, InputAdornment, TextField} from "@mui/material";
+import {Avatar, Button, Card, Chip, Grid, InputAdornment, TextField} from "@mui/material";
 import {Box} from "@mui/system";
 import {Product} from "../../../Types";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
@@ -73,6 +73,7 @@ export default function InventoryTable({toggleFunction}: TableProps) {
         <Table sx={{width: '100%'}} aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell align={"left"}/>
               <TableCell align={"left"}>Sku</TableCell>
               <TableCell align="left">Name</TableCell>
               <TableCell align="left">Category</TableCell>
@@ -88,6 +89,9 @@ export default function InventoryTable({toggleFunction}: TableProps) {
                 key={product.id}
                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
               >
+                <TableCell align="left">
+                  <Avatar src={product.image}/>
+                </TableCell>
                 <TableCell align="left">{product.sku}</TableCell>
                 <TableCell align="left">{product.name}</TableCell>
                 <TableCell align="left">
