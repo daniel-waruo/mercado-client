@@ -44,7 +44,6 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
   const [errors, setErrors] = useState<string[]>([]);
   const [file, setFile] = useState<any>();
   const [blobFile, setBlobFile] = useState<Blob>();
-
   const onFileChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     // @ts-ignore
     const fileReader = new FileReader();
@@ -101,13 +100,17 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
         <form
 
           onSubmit={
-            (e) => {
+            async (e) => {
               const data = new FormData(e.currentTarget);
               for (const [key, value] of Object.entries(product)) {
                 console.log(`${key}: ${value}`);
                 data.append(key, value)
               }
-              data.append('image', blobFile as Blob)
+              if (blobFile) {
+                data.append('image', blobFile as Blob)
+              } else {
+                data.delete('image')
+              }
               if (!initialProduct) {
                 getInstance().post('products/', data, {
                   headers: {
