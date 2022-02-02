@@ -5,9 +5,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {Chip} from "@mui/material";
+import {Avatar, Chip} from "@mui/material";
 import {Box} from "@mui/system";
 import {OrderItem} from "../../../Types";
+import LocalMallTwoToneIcon from "@mui/icons-material/LocalMallTwoTone";
 
 type TableProps = {
   items: OrderItem[]
@@ -21,6 +22,7 @@ export default function OrderItemsTable({items}: TableProps) {
         <Table sx={{width: '100%'}} aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell align={"left"}/>
               <TableCell align={"left"}>Sku</TableCell>
               <TableCell align="left">Name</TableCell>
               <TableCell align="left">Category</TableCell>
@@ -35,6 +37,11 @@ export default function OrderItemsTable({items}: TableProps) {
                 key={item.id}
                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
               >
+                <TableCell align="left">
+                  <Avatar src={item.product.image} sx={{backgroundColor:'primary.main'}}>
+                    <LocalMallTwoToneIcon fontSize={'inherit'}/>
+                  </Avatar>
+                </TableCell>
                 <TableCell align="left">{item.product.sku}</TableCell>
                 <TableCell align="left">{item.product.name}</TableCell>
                 <TableCell align="left">

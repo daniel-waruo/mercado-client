@@ -59,16 +59,17 @@ function AddOrderModal({open, handleClose}: AddOrderModalProps) {
     ])
   }
   const updateCart = (product: Product, quantity: number) => {
-    let products = [
-      ...cartProducts.filter(
-        ({product: {id}}) => id != product.id
-      )
-    ]
-    products.push(
-      {
-        product: product,
-        quantity
-      })
+    let products:CartProduct[] = cartProducts.map(
+      (cartProduct) => {
+        if (cartProduct.product.id == product.id) {
+          return {
+            product,
+            quantity
+          }
+        }
+        return cartProduct
+      }
+    )
     setCartProducts([...products])
   }
   if (!open) return null
@@ -86,9 +87,7 @@ function AddOrderModal({open, handleClose}: AddOrderModalProps) {
           >
             <CircularProgress color="inherit"/>
           </Backdrop>
-          <Box sx={{
-
-          }}>
+          <Box sx={{}}>
             <Grid container spacing={2}>
               <Grid item xs={9}>
                 {
@@ -148,28 +147,24 @@ function AddOrderModal({open, handleClose}: AddOrderModalProps) {
           {
             customer?.id ?
               <Fab
-                onClick={
-                  () => {
-                    setLoading(true)
-                    getInstance().post(
-                      '/orders/',
-                      {
-                        items: cartProducts,
-                        buyer: customer
-                      }
-                    ).then(
-                      (response) => {
-                        const data = response.data.results
-                        Router.reload();
-                      }
-                    ).catch(
-                      (error) => {
-                        console.error(error)
-                      }
-                    ).finally(
-                      () => setLoading(false)
-                    )
-                  }
+                onClick={() => {
+                  setLoading(true)
+                  getInstance().post(
+                    '/orders/',
+                    {
+                      items: cartProducts,
+                      buyer: customer
+                    }
+                  ).then((response) => {
+                      const data = response.data.results
+                      Router.reload();
+                    }
+                  ).catch((error) => {
+                      console.error(error)
+                    }
+                  ).finally(() => setLoading(false)
+                  )
+                }
                 }
                 sx={{
                   position: "fixed",

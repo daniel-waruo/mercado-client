@@ -38,8 +38,8 @@ const OrderCart = ({cartProducts, removeFromCart,updateCart}: OrderCartProps) =>
                 <CardContent>
                   <Grid container>
                     <Grid item xs={12} lg={8}>
-                      <Typography sx={{marginTop: '1rem'}} fontSize={20}>{cartProduct.product.name}</Typography>
-                      <Typography sx={{marginTop: '1rem'}} fontSize={10}>{cartProduct.product.price}</Typography>
+                      <Typography sx={{marginTop: '1rem'}} fontSize={18}>{cartProduct.product.name}</Typography>
+                      <Typography sx={{marginTop: '1rem'}} fontWeight={'bold'} fontSize={16}>Ksh.{cartProduct.product.price}</Typography>
                     </Grid>
                     <Grid item xs={12} lg={4}>
                       <TextField type={"number"}
