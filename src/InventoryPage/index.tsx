@@ -10,8 +10,9 @@ import InventoryModal from "./components/InventoryModal";
 import {getInstance} from "../../axios";
 import CategoryModal from "./components/CategoryModal";
 import BrandModal from "./components/BrandModal";
-
+import FacebookTwoToneIcon from '@mui/icons-material/FacebookTwoTone';
 import {SettingsTwoTone as SettingsIcon,AddTwoTone as AddIcon,SaveTwoTone as SaveIcon} from '@mui/icons-material';
+import ExportProducts from "./components/ExportProducts";
 
 const InventoryPage = () => {
   const [open, setOpen] = useState(false);
@@ -130,6 +131,9 @@ const InventoryPage = () => {
                 }}>
                 Manage Brands
               </Button>
+            </Grid>
+            <Grid item>
+              <ExportProducts/>
             </Grid>
           </Grid>
         </Grid>
