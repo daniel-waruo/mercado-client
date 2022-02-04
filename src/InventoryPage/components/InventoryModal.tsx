@@ -155,9 +155,9 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
             <div style={{textAlign: 'center'}}>
               <Grid container justifyContent={'center'} spacing={2}>
                 <Grid item component={'label'}>
-                  <input required
-                         style={{display: "none"}}
+                  <input style={{display:"none"}}
                          type="file"
+                         required={!Boolean(product?.image)}
                          accept="image/*"
                          onChange={onFileChange}/>
                   <Avatar
