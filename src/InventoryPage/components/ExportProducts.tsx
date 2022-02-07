@@ -34,7 +34,7 @@ const ExportProducts = () => {
             Export Products
           </Button>
         )}
-        autoLoad={true}
+        autoLoad={false}
         fields="name,email,picture"
         scope="public_profile,catalog_management"
         callback={callBackHandler}/>

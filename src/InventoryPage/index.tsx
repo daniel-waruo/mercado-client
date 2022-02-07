@@ -10,8 +10,7 @@ import InventoryModal from "./components/InventoryModal";
 import {getInstance} from "../../axios";
 import CategoryModal from "./components/CategoryModal";
 import BrandModal from "./components/BrandModal";
-import FacebookTwoToneIcon from '@mui/icons-material/FacebookTwoTone';
-import {SettingsTwoTone as SettingsIcon,AddTwoTone as AddIcon,SaveTwoTone as SaveIcon} from '@mui/icons-material';
+import {AddTwoTone as AddIcon, SettingsTwoTone as SettingsIcon} from '@mui/icons-material';
 import ExportProducts from "./components/ExportProducts";
 
 const InventoryPage = () => {

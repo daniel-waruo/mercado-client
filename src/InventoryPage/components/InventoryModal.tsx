@@ -47,6 +47,7 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
   let [product, setProduct] = useState<Product>({
     sku: '',
     name: '',
+    description: '',
     cost: 0,
     price: 0,
     inStock: 0,
@@ -58,15 +59,11 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
   const [file, setFile] = useState<any>();
   const [blobFile, setBlobFile] = useState<Blob>();
   const onFileChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    // @ts-ignore
     const fileReader = new FileReader();
-    // @ts-ignore
-    const fileHandler: ProgressEvent<FileReader> = (e) => {
+    fileReader.onload = (e) => {
+      // @ts-ignore
       setFile(e.target.result);
     }
-    console.log(fileReader)
-    // @ts-ignore
-    fileReader.onload = fileHandler
     // @ts-ignore
     fileReader.readAsDataURL(event.target.files[0]);
     // @ts-ignore
@@ -155,7 +152,7 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
             <div style={{textAlign: 'center'}}>
               <Grid container justifyContent={'center'} spacing={2}>
                 <Grid item component={'label'}>
-                  <input style={{display:"none"}}
+                  <input style={{display: "none"}}
                          type="file"
                          required={!Boolean(product?.image)}
                          accept="image/*"
@@ -211,6 +208,24 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
                     }
                     variant="outlined"/>
                 </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    type={"textarea"}
+                    required
+                    label={"Description"}
+                    defaultValue={initialProduct?.description}
+                    minRows={3}
+                    variant={"outlined"}
+                    onChange={
+                        (e) => {
+                          setProduct({
+                            ...product,
+                            description: e.target.value as unknown as string
+                          })
+                        }
+                      }
+                    fullWidth/>
+                </Grid>
                 <Grid item xs={12} md={6}>
                   <FormControl fullWidth sx={{marginY: '0.5rem'}}>
                     <InputLabel id="select-category-label">Category</InputLabel>
@@ -223,9 +238,10 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
                       variant={'outlined'}
                       onChange={
                         (e) => {
-                          // @ts-ignore
-                          product.category = e.target.value as unknown as number
-                          setProduct(product)
+                          setProduct({
+                            ...product,
+                            category: e.target.value as unknown as number
+                          })
                         }
                       }
                     >
@@ -251,9 +267,10 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
                       variant={'outlined'}
                       onChange={
                         (e) => {
-                          // @ts-ignore
-                          product.brand = e.target.value as unknown as number
-                          setProduct(product)
+                          setProduct({
+                            ...product,
+                            brand: e.target.value as unknown as number
+                          })
                         }
                       }
                     >
@@ -279,11 +296,10 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
                     inputProps={{step: 0.5}}
                     onChange={
                       (e) => {
-                        product = {
+                        setProduct({
                           ...product,
                           cost: e.target.value as string
-                        }
-                        setProduct(product)
+                        })
                       }
                     }
                     variant="outlined"/>
@@ -313,7 +329,6 @@ function InventoryModal({open, handleClose, initialProduct}: ModalProps) {
                 </Grid>
               </Grid>
             </div>
-
             <TextField
               required
               fullWidth

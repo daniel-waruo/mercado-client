@@ -2,8 +2,10 @@ export interface Product {
   id?: number
   sku: string
   name: string
-  image?:string
+  image?: string
+  description?: string
   category?: number
+  active?: boolean
   brand?: number
   cost: number | string,
   price: number | string,

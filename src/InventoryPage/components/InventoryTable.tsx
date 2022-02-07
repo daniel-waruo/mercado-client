@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {Avatar, Button, Card, Chip, Grid, InputAdornment, TextField} from "@mui/material";
+import {Avatar, Button, Card, Chip, Grid, InputAdornment, Switch, TextField} from "@mui/material";
 import {Box} from "@mui/system";
 import {Product} from "../../../Types";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
@@ -25,6 +25,7 @@ export default function InventoryTable({toggleFunction}: TableProps) {
   const [products, setProducts] = useState<Product[]>()
   const [next, setNext] = useState<string | null>(null)
   const [previous, setPrevious] = useState<string | null>(null)
+  const [disable, setDisable] = useState<boolean>(false)
 
   const fetchData = (link?: string) => {
     if (link) {
@@ -55,7 +56,7 @@ export default function InventoryTable({toggleFunction}: TableProps) {
       <TextField
         sx={{
           marginBottom: '2rem',
-          marginTop:"1rem",
+          marginTop: "1rem",
         }}
         helperText={"Enter the name of the product you want to find "}
         label="Search"
@@ -68,7 +69,7 @@ export default function InventoryTable({toggleFunction}: TableProps) {
           ),
         }}
         fullWidth
-        />
+      />
       <TableContainer component={Box}>
         <Table sx={{width: '100%'}} aria-label="simple table">
           <TableHead>
@@ -79,6 +80,7 @@ export default function InventoryTable({toggleFunction}: TableProps) {
               <TableCell align="left">Category</TableCell>
               <TableCell align="left">Cost</TableCell>
               <TableCell align="left">Price</TableCell>
+              <TableCell align="left">Is Active</TableCell>
               <TableCell align="left">In Stock</TableCell>
               <TableCell align="left" colSpan={2}/>
             </TableRow>
@@ -99,6 +101,25 @@ export default function InventoryTable({toggleFunction}: TableProps) {
                 </TableCell>
                 <TableCell align="left">Ksh {product.cost}</TableCell>
                 <TableCell align="left">Ksh {product.price}</TableCell>
+                <TableCell align={"left"}>
+                  <Switch
+                    defaultChecked={product.active}
+                    disabled={disable}
+                    onChange={
+                      () => {
+                        setDisable(true)
+                        console.log(product.active)
+                        getInstance().put(
+                          `products/${product.id}/`,
+                          {
+                            ...product,
+                            image: undefined,
+                            active: !product.active
+                          }
+                        ).finally(() => setDisable(false))
+                      }
+                    }/>
+                </TableCell>
                 <TableCell align="left">{product.inStock}</TableCell>
                 <TableCell align="left">
                   <Button startIcon={<ModeEditOutlinedIcon/>}
@@ -120,6 +141,7 @@ export default function InventoryTable({toggleFunction}: TableProps) {
                     DELETE
                   </Button>
                 </TableCell>
+
               </TableRow>
             ))}
           </TableBody>
