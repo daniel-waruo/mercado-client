@@ -32,7 +32,6 @@ function App(props: AppProps) {
           <Component {...pageProps} />
         </NoSsr>
       </ThemeProvider>
-
       <a style={{display: 'none'}} href="https://icons8.com/icon/tFqJwV9rQV9k/order">Order icon by Icons8</a>
     </CacheProvider>
   );

@@ -1,10 +1,16 @@
 import React, {ReactChild, ReactChildren, useEffect} from "react";
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import CorporateFareTwoToneIcon from '@mui/icons-material/CorporateFareTwoTone';
+import PeopleOutlineTwoToneIcon from '@mui/icons-material/PeopleOutlineTwoTone';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleOutlineSharpIcon from '@mui/icons-material/PeopleOutlineSharp';
 import Inventory2SharpIcon from '@mui/icons-material/Inventory2Sharp';
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import LocalShippingTwoToneIcon from '@mui/icons-material/LocalShippingTwoTone';
+import StoreTwoToneIcon from '@mui/icons-material/StoreTwoTone';
+import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
+import MoneyOffCsredTwoToneIcon from '@mui/icons-material/MoneyOffCsredTwoTone';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -16,9 +22,8 @@ import Link from "next/link"
 import {getInstance} from "../../axios";
 import Router, {useRouter} from "next/router";
 import {createTheme} from "@mui/system";
-import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 
-const drawerWidth = 200;
+const drawerWidth = 250;
 
 type MainProps = {
   title: string
@@ -83,12 +88,17 @@ const SideBar = () => {
           />
         </Fade>
       </Box>
-      <List>
+      <List sx={{marginRight: "1.5rem"}}>
         <SideBarItem href={'/'} text={'Dashboard'} iconComponent={DashboardIcon}/>
-        <SideBarItem href={'/orders'} text={'Orders'} iconComponent={InboxIcon}/>
-        <SideBarItem href={'/invoices'} text={'Invoices'} iconComponent={AttachMoneyOutlinedIcon}/>
         <SideBarItem href={'/customers'} text={'Customers'} iconComponent={PeopleOutlineSharpIcon}/>
+        <SideBarItem href={'/orders'} text={'Orders'} iconComponent={ShoppingCartTwoToneIcon}/>
+        <SideBarItem href={'/invoices'} text={'Invoices'} iconComponent={AttachMoneyOutlinedIcon}/>
+        <SideBarItem href={'/suppliers'} text={'Suppliers'} iconComponent={StoreTwoToneIcon}/>
+        <SideBarItem href={'/shipments'} text={'Shipments'} iconComponent={LocalShippingTwoToneIcon}/>
         <SideBarItem href={'/inventory'} text={'Inventory'} iconComponent={Inventory2SharpIcon}/>
+        <SideBarItem href={'/organization'} text={'Organization'} iconComponent={CorporateFareTwoToneIcon}/>
+        <SideBarItem href={'/users'} text={'Users'} iconComponent={PeopleOutlineTwoToneIcon}/>
+        <SideBarItem href={'/expenses'} text={'Expenses'} iconComponent={MoneyOffCsredTwoToneIcon}/>
       </List>
     </Box>
   )
