@@ -44,6 +44,27 @@ export interface Order {
   total: number
 }
 
+export interface InvoiceItem {
+  id: number
+  order: number
+  cost: number
+  price: number
+  product: Product
+  quantity: number
+}
+
+export interface Invoice {
+  id?: number
+  buyer?: Customer
+  channel: string
+  created_at: string
+  items: OrderItem[]
+  payment_method: string
+  payment_status: string
+  status: 'success' | 'cancelled' | 'pending' | 'overdue' | string
+  total: number
+}
+
 
 export interface Metrics {
   totalSales: number

@@ -16,6 +16,7 @@ import Link from "next/link"
 import {getInstance} from "../../axios";
 import Router, {useRouter} from "next/router";
 import {createTheme} from "@mui/system";
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 
 const drawerWidth = 200;
 
@@ -85,6 +86,7 @@ const SideBar = () => {
       <List>
         <SideBarItem href={'/'} text={'Dashboard'} iconComponent={DashboardIcon}/>
         <SideBarItem href={'/orders'} text={'Orders'} iconComponent={InboxIcon}/>
+        <SideBarItem href={'/invoices'} text={'Invoices'} iconComponent={AttachMoneyOutlinedIcon}/>
         <SideBarItem href={'/customers'} text={'Customers'} iconComponent={PeopleOutlineSharpIcon}/>
         <SideBarItem href={'/inventory'} text={'Inventory'} iconComponent={Inventory2SharpIcon}/>
       </List>
