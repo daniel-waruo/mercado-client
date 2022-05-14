@@ -9,7 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Router from "next/router";
 
-const drawerWidth = 200;
+const drawerWidth = 250;
 
 type NavBarProps = {
   title: string
