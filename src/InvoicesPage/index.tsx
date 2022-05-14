@@ -4,7 +4,7 @@ import DashboardCard from "../DashboardPage/components/DashboardCard";
 import React, {useEffect, useState} from "react";
 import InvoicesTable from "./components/InvoicesTable";
 import OrderModal from "./components/OrderModal";
-import {DashboardMetrics, Order} from "../../Types";
+import {DashboardMetrics, Invoice, Order} from "../../Types";
 import {getInstance} from "../../axios";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
@@ -21,7 +21,7 @@ const InvoicesPage = () => {
   const [open, setOpen] = useState(false);
   const [openNew, setOpenNew] = useState(false);
 
-  const [invoice, setInvoice] = useState<Order | undefined>();
+  const [invoice, setInvoice] = useState<Invoice | undefined>();
   const [metrics, setMetrics] = useState<DashboardMetrics>({
     totalOrders: 0,
     avgOrderValue: 0,

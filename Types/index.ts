@@ -44,6 +44,17 @@ export interface Order {
   total: number
 }
 
+export interface Invoice {
+  id?: number
+  buyer?: Customer
+  channel: string
+  created_at: string
+  items: OrderItem[]
+  payment_method: string
+  payment_status: string
+  status: 'pending' | string
+  total: number
+}
 export interface InvoiceItem {
   id: number
   order: number

@@ -21,10 +21,10 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {deleteItems, protocolFix} from "../../utils";
 import DeleteIcon from "@mui/icons-material/Delete";
-import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';
+
 type OrdersTableProps = {
   toggleFunction: (order: Order) => void,
-  status?: 'fin' | 'prep' | 'ship' | 'can'
+  status?: 'pending' | 'success' | 'overdue' | 'cancelled'
 }
 
 export default function InvoicesTable({toggleFunction, status}: OrdersTableProps) {
