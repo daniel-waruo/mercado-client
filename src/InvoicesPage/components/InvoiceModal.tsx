@@ -39,7 +39,7 @@ type OrderModalProps = {
   order?: Order
 }
 
-function OrderModal({open, handleClose, order: initialOrder}: OrderModalProps) {
+function InvoiceModal({open, handleClose, order: initialOrder}: OrderModalProps) {
   let [order, setOrder] = useState<Order | undefined>(initialOrder);
   let [loading,setLoading] = useState(false)
   useEffect(
@@ -173,4 +173,4 @@ function OrderModal({open, handleClose, order: initialOrder}: OrderModalProps) {
 }
 
 
-export default OrderModal;
+export default InvoiceModal;

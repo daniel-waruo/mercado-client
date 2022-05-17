@@ -23,7 +23,7 @@ function App(props: AppProps) {
       <Head>
         {/* PWA primary color */}
         <meta name="theme-color" content={theme.palette.primary.main}/>
-        <title>Patterns General Traders</title>
+        <title>Mercado</title>
       </Head>
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

@@ -93,12 +93,12 @@ const SideBar = () => {
         <SideBarItem href={'/customers'} text={'Customers'} iconComponent={PeopleOutlineSharpIcon}/>
         <SideBarItem href={'/orders'} text={'Orders'} iconComponent={ShoppingCartTwoToneIcon}/>
         <SideBarItem href={'/invoices'} text={'Invoices'} iconComponent={AttachMoneyOutlinedIcon}/>
+        <SideBarItem href={'/expenses'} text={'Expenses'} iconComponent={MoneyOffCsredTwoToneIcon}/>
         <SideBarItem href={'/suppliers'} text={'Suppliers'} iconComponent={StoreTwoToneIcon}/>
         <SideBarItem href={'/shipments'} text={'Shipments'} iconComponent={LocalShippingTwoToneIcon}/>
         <SideBarItem href={'/inventory'} text={'Inventory'} iconComponent={Inventory2SharpIcon}/>
         <SideBarItem href={'/organization'} text={'Organization'} iconComponent={CorporateFareTwoToneIcon}/>
         <SideBarItem href={'/users'} text={'Users'} iconComponent={PeopleOutlineTwoToneIcon}/>
-        <SideBarItem href={'/expenses'} text={'Expenses'} iconComponent={MoneyOffCsredTwoToneIcon}/>
       </List>
     </Box>
   )

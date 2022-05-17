@@ -3,7 +3,6 @@ import {Button, Card, Grid} from "@mui/material";
 import DashboardCard from "../DashboardPage/components/DashboardCard";
 import React, {useEffect, useState} from "react";
 import InvoicesTable from "./components/InvoicesTable";
-import OrderModal from "./components/OrderModal";
 import {DashboardMetrics, Invoice, Order} from "../../Types";
 import {getInstance} from "../../axios";
 import Box from "@mui/material/Box";
@@ -16,6 +15,7 @@ import AddInvoiceModal from "./components/AddInvoiceModal";
 import TimelapseTwoToneIcon from '@mui/icons-material/TimelapseTwoTone';
 import PriorityHighTwoToneIcon from '@mui/icons-material/PriorityHighTwoTone';
 import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';
+import InvoiceModal from "./components/InvoiceModal";
 
 const InvoicesPage = () => {
   const [open, setOpen] = useState(false);
@@ -64,7 +64,7 @@ const InvoicesPage = () => {
   return (
     <MainLayout title={'Invoices'}>
       <Grid container spacing={2}>
-        <OrderModal
+        <InvoiceModal
           order={invoice}
           handleClose={() => setOpen(false)} open={open}/>
         <AddInvoiceModal

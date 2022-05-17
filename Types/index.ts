@@ -55,12 +55,14 @@ export interface Invoice {
   status: 'pending' | string
   total: number
 }
+
 export interface InvoiceItem {
-  id: number
-  order: number
-  cost: number
+  id?: number
+  invoice?: number
+  cost?: number
+  description: string
   price: number
-  product: Product
+  product?: Product
   quantity: number
 }
 
