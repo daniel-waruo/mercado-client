@@ -30,7 +30,7 @@ const CustomersPage = () => {
         console.log(error)
       }
     )
-  }, [getInstance, setMetrics]);
+  }, []);
 
 
   return (

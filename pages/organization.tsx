@@ -1,10 +1,8 @@
-import type {NextPage} from 'next'
-import SuppliersPage from "../src/SuppliersPage";
+import OrganizationPage from "../src/OrganizationPage";
+import {NextPage} from "next";
 
-const Suppliers: NextPage = () => {
-  return (
-    <SuppliersPage/>
-  )
+const Organization: NextPage = () => {
+  return <OrganizationPage/>
 }
 
-export default Suppliers;
+export default Organization;

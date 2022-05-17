@@ -1,10 +1,10 @@
 import type {NextPage} from 'next'
-import SuppliersPage from "../src/SuppliersPage";
+import UsersPage from "../src/UsersPage";
 
-const Suppliers: NextPage = () => {
+const Users: NextPage = () => {
   return (
-    <SuppliersPage/>
+    <UsersPage/>
   )
 }
 
-export default Suppliers;
+export default Users;
